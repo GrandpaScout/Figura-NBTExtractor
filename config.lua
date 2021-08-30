@@ -3,12 +3,12 @@ return {
 
   ---The cache folder. This will not exist if you have not run the extractor yet.
   ---@type string?
-  cache_folder = "D:\\Program Files\\Minecraft\\Minecraft Versions\\Fabric 1.16.5\\figura\\cache",
+  cache_folder = nil,
 
   ---The path to java.exe. This will not exist if you have not run the extractor yet.  
   ---Despite this being the Java "path" this can actually be any command that starts java.
   ---@type string?
-  java_path = "java",
+  java_path = nil,
 
   ---The minecraft server jar.
   ---@type string
@@ -39,7 +39,7 @@ return {
   ---| "1" #INFO
   ---| "2" #WARN
   ---| "3" #ERROR
-  min_log_level = 0,
+  min_log_level = 1,
 
   ---Output raw lua tables to the output folder
   ---@type boolean
@@ -50,10 +50,11 @@ return {
 
   ---The string to cause a sound to be made in the command prompt.  
   ---Empty this string to make prompts silent or if your command prompt does not support bells.
+  ---@type string
   cmd_bell = "\a\a",
 
   ---The command to run to confirm java is in the path.  
-  ---This command return exit code 0 on success and 1 on failure.  
+  ---This command should return exit code 0 on success and 1 on failure.  
   ---If you do not want this command to run, set `java_path`.
   ---@type string
   cmd_where_java = "WHERE java /Q",
@@ -118,8 +119,8 @@ return {
   ---===[[ADVANCED]]===---
 
   ---Sets protected mode.  
-  ---If protected mode is on, an error during extraction will not throw a Lua error and will instead
-  ---cause the extractor to end early and show a message detailing how to get help.
+  ---If protected mode is on, an error during extraction will not throw a Lua error and will
+  ---instead cause the extractor to end early and show a message detailing how to get help.
   ---@type boolean
-  protected = true
+  protected = true,
 }
