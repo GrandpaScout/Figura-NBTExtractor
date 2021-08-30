@@ -32,7 +32,7 @@ you lose your avatar and don't have a local backup of it.
 **This tool is made to be run on Windows. It will not run on other systems without some config
 tweaking!**
 
-This requires Lua 5.3.x to run and will not run with any other version of Lua.  
+This requires Lua version `5.3.x`/`5.4.x` to run and will not run with any other version of Lua.  
 (Because I said so, that's why.)
 
 You will also need a Minecraft server jar. The latest can be downloaded from the Minecraft launcher
@@ -57,11 +57,12 @@ if needed.
 &nbsp;
 ## Using the extractor
 The extractor will first ask you for the cache folder (it will instead ask you if you want to to use
-the last used cache folder if you have already used the extractor.)  
+the last used cache folder if you have already used the extractor, saying no will then ask you for
+the cache folder.)  
 Put in the path for the cache folder.
 
 It will then ask you for the UUID of a player, if you have not seen this player wearing an avatar,
-the tool will not work. You can use UUID4, Int32[], or UUIDMost/Least.
+the tool will not work. You can use `UUID4`, `Int32[]`, or `UUIDMost/Least` for the UUID.
 
 The NBT extractor will run automatically after you enter the UUID.  
 If the extractor prompts you, answer the prompt.
@@ -71,7 +72,8 @@ set by the config.
 
 &nbsp;
 # Configuration
-A reduced version of the default config is below:
+A reduced version of the default config without any type annotations or %replacement descriptions is
+below:
 ```lua
 return {
   ---===[[PATHS]]===---
@@ -157,13 +159,13 @@ If the extractor changes the config for any reason, the changes will be written 
 
 &nbsp;
 # Other Information
-The extractor will as you if a model is a `player_model` type model if it finds a keyword belonging
+The extractor will ask you if a model is a `player_model` type model if it finds a keyword belonging
 to it. If you say yes to the prompt, the parts will automatically move to the correct positions in
-the resulting blockbench model. If you say no, the pivot points of those keywords will be set to
+the resulting Blockbench model. If you say no, the pivot points of those keywords will be set to
 `0,0,0` and the parts will be positioned around that pivot.
 
 Rotated parts are tricky since Figura can not tell between rotations from Lua and rotations from
-blockbench, because of that, the resulting model of any avatar that uses Lua to rotate parts will
+Blockbench, because of that, the resulting model of any avatar that uses Lua to rotate parts will
 have the rotations that were applied to them the very tick it was uploaded. This usually will not
 cause problems unless you check the rotation of a part at the beginning of a script before rotating
 it in Lua.
