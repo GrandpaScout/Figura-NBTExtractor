@@ -122,7 +122,7 @@ local player_uuid = prompt.read(
   "\n---------------------------------------------------\n" ..
   "What is the UUID of the player you want to extract?\n" ..
   "UUID4, Int32[], and UUIDMost/Least are supported."
-)
+):trim()
 print()
 local seg
 do
