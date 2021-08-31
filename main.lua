@@ -11,7 +11,7 @@ if not (MAJOR == 5 and MINOR >= 2 and MINOR <= 5) then
 end
 if not os.execute() then error("failed to find shell for the script to use", 2) end
 package.path = "./?.lua;./modules/?.lua"
-
+_G.PATH_SEPERATOR = package.config:sub(1,1)
 
 _G.LOADMOD = arg[1]
 if LOADMOD then
@@ -45,8 +45,8 @@ _G.MAINLOADED = true
 local config = require "config"
 local file = require "file"
 file.makedir("logs")
-if file.check("logs" .. config.path_seperator .. "latest.log") then
-  os.execute(config.cmd_delete:gsub("%%%%", "logs" .. config.path_seperator .. "latest.log"))
+if file.check("logs" .. PATH_SEPERATOR .. "latest.log") then
+  os.execute(config.cmd_delete:gsub("%%%%", "logs" .. PATH_SEPERATOR .. "latest.log"))
 end
 os.execute(config.cmd_timeout:gsub("%%%%", "1"))
 
@@ -90,7 +90,7 @@ if not config.java_path then
     config.java_path = prompt.read(
       "\n------------------------------\n" ..
       "Java is missing from the path!" ..
-      'Where is "bin' .. config.path_seperator .. 'java.exe"?\n' ..
+      'Where is "bin' .. PATH_SEPERATOR .. 'java.exe"?\n' ..
       "(You can drag it into this window if your prompt supports it.)"
     ):gsub('^"', ""):gsub('"$', "")
   end
@@ -104,14 +104,14 @@ do
     ) then
       config.cache_folder = prompt.read(
         "\n------------------------------------\n" ..
-        'Where is your "figura' .. config.path_seperator .. 'cache" folder?\n' ..
+        'Where is your "figura' .. PATH_SEPERATOR .. 'cache" folder?\n' ..
         "(You can drag it into this window if your prompt supports it.)"
       )
     end
   else
     config.cache_folder = prompt.read(
       "\n------------------------------------\n" ..
-      'Where is your "figura' .. config.path_seperator .. 'cache" folder?\n' ..
+      'Where is your "figura' .. PATH_SEPERATOR .. 'cache" folder?\n' ..
       "(You can drag it into this window if your prompt supports it.)"
     ):gsub('^"', ""):gsub('"$', "")
   end
@@ -130,7 +130,7 @@ do
   seg = uuid.toUUID4Seg(uuid.fromAny(player_uuid))
   if not seg then log("Could not determine if a UUID was given", "main", 4) end
 end
-cache_file = cache_file .. config.path_seperator .. table.concat(seg, config.path_seperator) .. ".nbt"
+cache_file = cache_file .. PATH_SEPERATOR .. table.concat(seg, PATH_SEPERATOR) .. ".nbt"
 
 --#endregion
 
@@ -192,7 +192,7 @@ if not exs then
   log(
     "ENCOUNTERED AN EXTRACTION ERROR: " .. tostring(exe) .. string.indent(
       "\nPlease report this to Grandpa Scout along with the log file at" ..
-      '\n  "logs' .. config.path_seperator .. 'extractor.log"' ..
+      '\n  "logs' .. PATH_SEPERATOR .. 'extractor.log"' ..
       "\nand the nbt file at" ..
       '\n  "' .. cache_file .. '"', 2
     ) .. "\n", "main", 3

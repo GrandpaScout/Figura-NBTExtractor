@@ -14,10 +14,6 @@ return {
   ---@type string
   server_jar = "server.jar",
 
-  ---The character that seperates folders and files.
-  ---@type string
-  path_seperator = "\\",
-
   ---The converter input folder
   ---@type string
   input_folder = "input",

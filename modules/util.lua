@@ -139,9 +139,9 @@ end
 
 function this.path(...)
   return
-    table.concat({...}, config.path_seperator)
-      :gsub("[\\/]", config.path_seperator)
-      :gsub(config.path_seperator:rep(2), config.path_seperator)
+    table.concat({...}, PATH_SEPERATOR)
+      :gsub("[\\/]", PATH_SEPERATOR)
+      :gsub(PATH_SEPERATOR:rep(2), PATH_SEPERATOR)
 end
 
 if config.cmd_cd then
