@@ -11,8 +11,6 @@ local log, outf, avaf = util.log, file.outf, file.avaf
 
 local f = {}
 
-log("Test error", "extractor", 4)
-
 util.addCleanup(function()
   for _,fl in ipairs(f) do if io.type(fl) == "file" then fl:close() end end
 end)
