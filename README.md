@@ -88,9 +88,6 @@ return {
   ---The minecraft server jar.
   server_jar = "server.jar",
 
-  ---The character that seperates folders and files.
-  path_seperator = "\\",
-
   ---The converter input folder
   input_folder = "input",
 
