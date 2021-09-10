@@ -36,12 +36,15 @@ This requires Lua version `5.3.x`/`5.4.x` to run and will not run with any other
 (Because I said so, that's why.)
 
 You will also need a Minecraft server jar. The latest can be downloaded from the Minecraft launcher
-by selecting the latest version installation and clicking the server button above the version
-dropdown.  
+by selecting the latest version installation and clicking the *SERVER* button above the version
+dropdown. Place the downloaded `server.jar` into the same folder with `main.lua`  
 &nbsp;  
 ## Running
 Open a command prompt in the folder where `main.lua` sits and run `path/to/lua.exe main.lua` to
 start the extractor.
+
+You can optionally use `path/to/lua.exe main.lua -f "DRIVE://path/to/avatar.nbt"` to directly
+extract a file without going through the file selection steps.
 
 ### Interactive mode
 Running `path/to/lua.exe -i main.lua modulename` will cause the module to be loaded standalone into
@@ -52,8 +55,8 @@ The following modules can be loaded into interactive mode:
 The following modules cannot be loaded into interactive mode:
 > `main`, `cfgw`, `config`, `extractor`
 
-You can use `util.printTable` (you may need to `require "util"`) to print the contents of a table
-if needed.  
+You can use `util.printTable` (you may need to `util = require "util"`) to print the contents of a
+table if needed.  
 &nbsp;
 ## Using the extractor
 The extractor will first ask you for the cache folder (it will instead ask you if you want to to use

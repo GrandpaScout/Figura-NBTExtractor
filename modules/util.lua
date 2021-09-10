@@ -145,7 +145,7 @@ function this.path(...)
 end
 
 if config.cmd_cd then
-  local s, cwd = pcall(io.popen(config.cmd_cd))
+  local s, cwd = pcall(io.popen, config.cmd_cd)
   if s then
     this._cwd = cwd:read("l")
     cwd:close()

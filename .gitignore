@@ -3,6 +3,7 @@ avatar
 input
 logs
 output
+config.lua.tmp
 main_unix.lua
 main_windows.bat
 server.jar

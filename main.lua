@@ -14,7 +14,9 @@ package.path = "./?.lua;./modules/?.lua"
 _G.PATH_SEPERATOR = package.config:sub(1,1)
 
 _G.LOADMOD = arg[1]
-if LOADMOD then
+if LOADMOD == "-f" then
+  _G.LOADFILE = arg[2]
+elseif LOADMOD then
   LOADMOD = LOADMOD:match("%.?([^%.]+)$")
   local foundiflag, argi = false, 0
   while not foundiflag do
@@ -44,7 +46,7 @@ _G.MAINLOADED = true
 
 local config = require "config"
 local file = require "file"
-file.makedir("logs")
+os.execute(config.cmd_makedir:subs("logs"))
 if file.check("logs" .. PATH_SEPERATOR .. "latest.log") then
   os.execute(config.cmd_delete:gsub("%%%%", "logs" .. PATH_SEPERATOR .. "latest.log"))
 end
@@ -53,7 +55,7 @@ os.execute(config.cmd_timeout:gsub("%%%%", "1"))
 local cfgw = require "cfgw"
 local prompt = require "prompt"
 local uuid = require "uuid"
-local util = require "modules.util"
+local util = require "util"
 local log = util.log
 
 local mcserver = io.open(config.server_jar, "rb")
@@ -65,7 +67,7 @@ else
     string.indent(
       "\nYou can get a server jar from the Minecraft Launcher by editing a Minecraft" ..
       "\ninstallation and clicking the SERVER button above the version dropdown." ..
-      "\nWhen you download the server, place it in this folder.", 2
+      "\nWhen you download the server, place it in the same folder as `main.lua`.", 2
     ), "main", 3)
 end
 
@@ -80,57 +82,61 @@ io.stdout:write(string.indent(
   "I have no idea if this script will work on other systems, probably won't.\n", 2
 ))
 
-
-if not config.java_path then
-  local _, _, c = os.execute(config.cmd_where_java)
-  if c == 0 then
-    config.java_path = "java"
-  end
+local cache_file
+if LOADFILE then
+  cache_file = LOADFILE
+else
   if not config.java_path then
-    config.java_path = prompt.read(
-      "\n------------------------------\n" ..
-      "Java is missing from the path!" ..
-      'Where is "bin' .. PATH_SEPERATOR .. 'java.exe"?\n' ..
-      "(You can drag it into this window if your prompt supports it.)"
-    ):gsub('^"', ""):gsub('"$', "")
+    local _, _, c = os.execute(config.cmd_where_java)
+    if c == 0 then
+      config.java_path = "java"
+    end
+    if not config.java_path then
+      config.java_path = prompt.read(
+        "\n------------------------------\n" ..
+        "Java is missing from the path!" ..
+        'Where is "bin' .. PATH_SEPERATOR .. 'java.exe"?\n' ..
+        "(You can drag it into this window if your prompt supports it.)"
+      ):gsub('^"', ""):gsub('"$', "")
+    end
   end
-end
 
-do
-  if config.cache_folder then
-    if not prompt.choice(
-      "\n---------------------------------------------\n" ..
-      "Do you want to use the previous cache folder?"
-    ) then
+  do
+    if config.cache_folder then
+      if not prompt.choice(
+        "\n---------------------------------------------\n" ..
+        "Do you want to use the previous cache folder?"
+      ) then
+        config.cache_folder = prompt.read(
+          "\n------------------------------------\n" ..
+          'Where is your "figura' .. PATH_SEPERATOR .. 'cache" folder?\n' ..
+          "(You can drag it into this window if your prompt supports it.)"
+        )
+      end
+    else
       config.cache_folder = prompt.read(
         "\n------------------------------------\n" ..
         'Where is your "figura' .. PATH_SEPERATOR .. 'cache" folder?\n' ..
         "(You can drag it into this window if your prompt supports it.)"
-      )
+      ):gsub('^"', ""):gsub('"$', "")
     end
-  else
-    config.cache_folder = prompt.read(
-      "\n------------------------------------\n" ..
-      'Where is your "figura' .. PATH_SEPERATOR .. 'cache" folder?\n' ..
-      "(You can drag it into this window if your prompt supports it.)"
-    ):gsub('^"', ""):gsub('"$', "")
   end
-end
-local cache_file = config.cache_folder
+  cache_file = config.cache_folder
 
-local player_uuid = prompt.read(
-  "\n---------------------------------------------------\n" ..
-  "What is the UUID of the player you want to extract?\n" ..
-  "UUID4, Int32[], and UUIDMost/Least are supported."
-):trim()
-print()
-local seg
-do
-  --UUID4
-  seg = uuid.toUUID4Seg(uuid.fromAny(player_uuid))
-  if not seg then log("Could not determine if a UUID was given", "main", 4) end
+  local player_uuid = prompt.read(
+    "\n---------------------------------------------------\n" ..
+    "What is the UUID of the player you want to extract?\n" ..
+    "UUID4, Int32[], and UUIDMost/Least are supported."
+  ):trim()
+  print()
+  local seg
+  do
+    --UUID4
+    seg = uuid.toUUID4Seg(uuid.fromAny(player_uuid))
+    if not seg then log("Could not determine if a UUID was given", "main", 4) end
+  end
+  cache_file = cache_file .. PATH_SEPERATOR .. table.concat(seg, PATH_SEPERATOR) .. ".nbt"
 end
-cache_file = cache_file .. PATH_SEPERATOR .. table.concat(seg, PATH_SEPERATOR) .. ".nbt"
 
 --#endregion
 
