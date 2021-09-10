@@ -45,12 +45,13 @@ end
 _G.MAINLOADED = true
 
 local config = require "config"
+os.execute(config.cmd_makedir:gsub("%%%%", "logs"))
+os.execute(config.cmd_timeout:gsub("%%%%", "1"))
 local file = require "file"
-os.execute(config.cmd_makedir:subs("logs"))
 if file.check("logs" .. PATH_SEPERATOR .. "latest.log") then
   os.execute(config.cmd_delete:gsub("%%%%", "logs" .. PATH_SEPERATOR .. "latest.log"))
 end
-os.execute(config.cmd_timeout:gsub("%%%%", "1"))
+
 
 local cfgw = require "cfgw"
 local prompt = require "prompt"

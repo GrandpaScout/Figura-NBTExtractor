@@ -50,7 +50,10 @@ function this.dict(tbl)
 end
 
 if not LOADMOD then
-  this._logfile = io.open("logs/extractor.log", "w")
+  local ferr
+  this._logfile, ferr = io.open("logs/extractor.log", "w")
+  if not this._logfile then print(ferr) os.exit() end
+
   function this.log(str, module, level)
     level = level or 1
     local line
