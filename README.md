@@ -43,8 +43,9 @@ dropdown. Place the downloaded `server.jar` into the same folder with `main.lua`
 Open a command prompt in the folder where `main.lua` sits and run `path/to/lua.exe main.lua` to
 start the extractor.
 
-You can optionally use `path/to/lua.exe main.lua -f "DRIVE://path/to/avatar.nbt"` to directly
-extract a file without going through the file selection steps.
+*You can optionally use `path/to/lua.exe main.lua -f "path/to/avatar.nbt"` to directly
+extract a file without going through the file selection steps listed in
+[Using the extractor](#using-the-extractor).*
 
 ### Interactive mode
 Running `path/to/lua.exe -i main.lua modulename` will cause the module to be loaded standalone into
