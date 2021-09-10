@@ -15,7 +15,7 @@ _G.PATH_SEPERATOR = package.config:sub(1,1)
 
 _G.LOADMOD = arg[1]
 if LOADMOD == "-f" then
-  _G.LOADFILE = arg[2]
+  _G.LOADMOD, _G.LOADFILE = nil, arg[2]
 elseif LOADMOD then
   LOADMOD = LOADMOD:match("%.?([^%.]+)$")
   local foundiflag, argi = false, 0
