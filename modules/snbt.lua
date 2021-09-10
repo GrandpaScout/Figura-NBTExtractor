@@ -90,12 +90,13 @@ function this.readList()
   local tbl = {["\0type"] = "list"}
   this._seek = this._seek + 1
 
+  if this._data:seek("^%s*%]()") then return tbl end
   local method = this.readTag(false)
   method = this[method]
   while true do
     tbl[#tbl+1] = method()
     if not this._data:seek("^,%s*()") then
-      if this._data:seek("^%s*]()") then
+      if this._data:seek("^%s*%]()") then
         break
       else
         log("Failed to read list at character " .. this._seek, "snbt", 5)
@@ -110,6 +111,7 @@ function this.readCompound()
   local tbl = {["\0type"] = "dict"}
   this._seek = this._seek + 1
 
+  if this._data:seek("^%s*}()") then return tbl end
   local method, name
   while true do
     method, name = this.readTag(true)

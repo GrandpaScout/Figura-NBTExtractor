@@ -195,15 +195,17 @@ else
 end
 
 if not exs then
-  util.cleanup(true)
   log(
-    "ENCOUNTERED AN EXTRACTION ERROR: " .. tostring(exe) .. string.indent(
+    "ENCOUNTERED AN EXTRACTION ERROR:" .. string.indent(
+      "\n" .. tostring(exe) ..
+      "\n" .. "----------------------------------------" ..
       "\nPlease report this to Grandpa Scout along with the log file at" ..
       '\n  "logs' .. PATH_SEPERATOR .. 'extractor.log"' ..
       "\nand the nbt file at" ..
       '\n  "' .. cache_file .. '"', 2
     ) .. "\n", "main", 3
   )
+  util.cleanup(true)
   return
 end
 

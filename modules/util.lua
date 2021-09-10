@@ -15,6 +15,8 @@ end
 
 function this.cleanup(errored)
   for _,f in ipairs(this._cleanup) do f() end
+  print("\nPress Enter/Return to exit.")
+  io.read()
   os.exit(not errored)
 end
 
