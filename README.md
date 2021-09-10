@@ -5,7 +5,7 @@ An almost pure Lua way to extract source data from a compressed NBT
 
 &nbsp;
 ### Contents
-~~[What's New?](#whats-new)~~  
+[What's New?](#whats-new)  
 [What Is This?](#what-is-this)  
 [Why Is This Useful?](#why-is-this-useful)  
 [Usage](#usage)  
@@ -16,6 +16,14 @@ An almost pure Lua way to extract source data from a compressed NBT
 [Configuration](#configuration)  
 [Other Information](#other-information)
 ***
+&nbsp;
+# What's New?  
+The extractor now accepts a `-f` flag to allow you to extract an Avatar NBT file *anywhere* and not
+just the cache. It can also be used to quickly extract a file without having to enter a UUID.  
+Using this flag will skip all file selection steps and go straight to extraction.
+
+See [Running](#running) for more info.
+
 &nbsp;
 # What Is This?  
 This is a tool used for extracting the source model, texture, and script from a compressed NBT
