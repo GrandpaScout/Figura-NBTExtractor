@@ -1,3 +1,8 @@
+## **THIS TOOL NO LONGER WORKS, FIGURA HAS STOPPED USING THE CACHE FOLDER.**
+This tool will continue to work on 0.0.6, but later versions have stopped using the cache folder to save models. 
+
+***
+
 # Figura-NBTExtractor
 An almost pure Lua way to extract source data from a compressed NBT
 [Figura](https://modrinth.com/mod/figura) avatar from cache.
